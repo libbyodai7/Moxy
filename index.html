@@ -1,0 +1,157 @@
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Phaser and Particle</title>
+ <script src="//cdn.socket.io/socket.io-1.2.0.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/phaser/2.1.2/phaser.min.js"></script>
+  <link href='https://fonts.googleapis.com/css?family=Fredericka+the+Great' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Amatic+SC' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Permanent+Marker' rel='stylesheet' type='text/css'>
+
+  <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
+<link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
+
+
+<style>
+
+body{
+  background-image: url("browser-background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+  h1{
+    font-family: 'Fredericka the Great', cursive;
+    font-size: 200px;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px 20px 10px 20px;
+  }
+
+  #title{
+  background-image: url("logo1.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: 1000px;
+  height: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px 20px 10px 20px;
+}
+
+#steps{
+  font-family: 'Permanent Marker', cursive;
+}
+
+#button {
+  -webkit-border-radius: 49;
+  -moz-border-radius: 49;
+  border-radius: 49px;
+  font-family: 'Fredericka the Great', cursive;
+  color: #ffffff;
+  font-size: 100px;
+  background: #73d3f7;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  border: 20px solid #FFFFFF; 
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#button:hover {
+  background: #c4e8f5;
+  text-decoration: none;
+}
+
+#button-container{
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align:center;
+}
+
+
+
+#left-image{
+   bottom: 0;
+   left:0;
+   width: 600px;
+   height: 800px;
+   position:fixed;
+   background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-image: url("left-pet.png");
+}
+
+#right-image{
+   bottom: 0;
+   right:0;
+   width: 600px;
+   height: 800px;
+   position:fixed;
+   background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-image: url("right-pet.png");
+}
+
+
+
+  </style>
+
+  <script>
+
+$(window).resize(function(){
+if(screen.width < 1000){
+  $("left-image").hide();
+  $("right-image").hide();
+}; 
+});
+
+  </script>
+
+
+
+  <script>
+    $(document).ready(function() {
+      var socket = io.connect();
+
+      $('#button').click(function(e){  
+          socket.emit('click');
+          e.preventDefault();
+          console.log('button on');
+          socket.on('step-count', function(step){
+        // console.log(step); 
+         document.getElementById("steps").innerHTML = step;
+         //console.log(step);
+
+       });
+      });
+    });  
+  </script>
+
+</head>
+<body>
+<div id= "title">
+&nbsp;
+</div>
+
+<div id = "gameContainer">
+<script type="text/javascript" src ="game.js"></script>
+</div>
+
+  <div id= button-container>
+  <button id="button" href="#">Start counting Moxy Points!</button>
+</div>
+
+<div id="steps">
+  0
+</div>
+
+<div id="left-image">&nbsp;</div>
+<div id="right-image">&nbsp;</div>
+
+</div>
+</body>
+</html>
