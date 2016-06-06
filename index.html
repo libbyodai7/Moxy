@@ -116,7 +116,8 @@ if(screen.width < 1000){
 
   <script>
     $(document).ready(function() {
-      var socket = io.connect();
+      //var socket = io.connect();
+      var socket = io.connect('https://moxythegame.herokuapp.com');
 
       $('#button').click(function(e){  
           socket.emit('click');
